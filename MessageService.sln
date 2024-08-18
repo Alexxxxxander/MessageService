@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageWebService.API", "MessageWebService.API\MessageWebService.API.csproj", "{D2B80D98-7708-4C96-AF73-7A9FFFB24E70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageWebService.API", "MessageWebService.API\MessageWebService.API.csproj", "{D2B80D98-7708-4C96-AF73-7A9FFFB24E70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageClients", "MessageClients", "{7A735F3F-FE68-45BA-A660-FB01E13DCCEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageClientSender", "MessageClientSender\MessageClientSender.csproj", "{D100C4C0-8CDA-4E85-BF3C-B68840FFD9F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageClientWebSocket", "MessageClientWebSocket\MessageClientWebSocket.csproj", "{9C504B52-71A7-41C2-951E-592523337C1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceClientHistoryRead", "WebServiceClientHistoryRead\WebServiceClientHistoryRead.csproj", "{181BB8F3-7E9B-46CD-B7A7-5446C2C06D98}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{93EAE058-0B49-420F-910B-416D981C6ECC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +25,30 @@ Global
 		{D2B80D98-7708-4C96-AF73-7A9FFFB24E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2B80D98-7708-4C96-AF73-7A9FFFB24E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2B80D98-7708-4C96-AF73-7A9FFFB24E70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D100C4C0-8CDA-4E85-BF3C-B68840FFD9F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D100C4C0-8CDA-4E85-BF3C-B68840FFD9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D100C4C0-8CDA-4E85-BF3C-B68840FFD9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D100C4C0-8CDA-4E85-BF3C-B68840FFD9F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C504B52-71A7-41C2-951E-592523337C1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C504B52-71A7-41C2-951E-592523337C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C504B52-71A7-41C2-951E-592523337C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C504B52-71A7-41C2-951E-592523337C1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181BB8F3-7E9B-46CD-B7A7-5446C2C06D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181BB8F3-7E9B-46CD-B7A7-5446C2C06D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181BB8F3-7E9B-46CD-B7A7-5446C2C06D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181BB8F3-7E9B-46CD-B7A7-5446C2C06D98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93EAE058-0B49-420F-910B-416D981C6ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93EAE058-0B49-420F-910B-416D981C6ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93EAE058-0B49-420F-910B-416D981C6ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93EAE058-0B49-420F-910B-416D981C6ECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D100C4C0-8CDA-4E85-BF3C-B68840FFD9F4} = {7A735F3F-FE68-45BA-A660-FB01E13DCCEB}
+		{9C504B52-71A7-41C2-951E-592523337C1A} = {7A735F3F-FE68-45BA-A660-FB01E13DCCEB}
+		{181BB8F3-7E9B-46CD-B7A7-5446C2C06D98} = {7A735F3F-FE68-45BA-A660-FB01E13DCCEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8D6977F1-2C14-45DC-A175-BE54D7717F2C}

@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  messagewebservice.api:
+    image: ${DOCKER_REGISTRY-}messagewebserviceapi
+    build:
+      context: .
+      dockerfile: MessageWebService.API/Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=messages_db;Username=postgres;Password=12345
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: messages_db
+    ports:
+      - "5432:5432"     

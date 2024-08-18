@@ -1,33 +1,52 @@
-﻿using MessageWebService.API.Models;
+﻿using MessageWebService.API.DAL;
+using MessageWebService.API.Models;
+using MessageWebService.API.Hubs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 
-[ApiController]
-[Route("api/[controller]")]
-public class MessagesController : ControllerBase
+namespace MessageService.API.Controllers
 {
-    private readonly AppDbContext _context;
-
-    public MessagesController(AppDbContext context)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class MessagesController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly MessageRepository _repository;
+        private readonly IHubContext<MessageHub> _hubContext;
+        private readonly ILogger<MessagesController> _logger;
 
-    [HttpPost]
-    public async Task<ActionResult> SendMessage([FromBody] Message message)
-    {
-        message.Timestamp = DateTime.UtcNow;
-        _context.Messages.Add(message);
-        await _context.SaveChangesAsync();
-        return Ok();
-    }
+        public MessagesController(MessageRepository repository, IHubContext<MessageHub> hubContext, ILogger<MessagesController> logger)
+        {
+            _repository = repository;
+            _hubContext = hubContext;
+            _logger = logger;
+        }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Message>>> GetMessages([FromQuery] DateTime from, [FromQuery] DateTime to)
-    {
-        var messages = await _context.Messages
-            .Where(m => m.Timestamp >= from && m.Timestamp <= to)
-            .ToListAsync();
-        return Ok(messages);
+        [HttpPost]
+        public IActionResult SendMessage([FromBody] Message message)
+        {
+            message.Timestamp = DateTime.UtcNow.AddHours(3);
+            _repository.AddMessage(message);
+            _logger.LogInformation("Message added with content: {Content}", message.Content);
+            try
+            {
+                _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            _logger.LogInformation("Message broadcasted to WebSocket clients.");
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetMessages([FromQuery] DateTime from, [FromQuery] DateTime to)
+        {
+            var messages = _repository.GetMessages(from, to);
+            _logger.LogInformation("Messages retrieved from {From} to {To}", from, to);
+            return Ok(messages);
+        }
     }
 }
