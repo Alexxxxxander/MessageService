@@ -27,15 +27,7 @@ namespace MessageService.API.Controllers
             message.Timestamp = DateTime.UtcNow.AddHours(3);
             _repository.AddMessage(message);
             _logger.LogInformation("Message added with content: {Content}", message.Content);
-            try
-            {
-                _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
             _logger.LogInformation("Message broadcasted to WebSocket clients.");
 
             return Ok();

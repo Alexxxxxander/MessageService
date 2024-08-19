@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using MessageWebService.API.Models;
+using Microsoft.AspNetCore.SignalR.Client;
 using SharedLibraly;
+
+
 
 class ClientMessageListner
 {
     static async Task Main(string[] args)
     {
         var connection = new HubConnectionBuilder()
-            .WithUrl($"https://localhost:{ClientSettings.PORT}/Messages")
+            .WithUrl($"https://localhost:{ClientSettings.PORT}/messagesHub")
             .Build();
-        connection.On<string>("ReceiveMessage", message =>
+        connection.On<Message>("ReceiveMessage", message =>
         {
-            Console.WriteLine($"Получено сообщение: {message}");
+            Console.WriteLine($"{message.Timestamp.ToShortTimeString()}   Получено сообщение: {message.Content}");
         });
 
         await connection.StartAsync();
