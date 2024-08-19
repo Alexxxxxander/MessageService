@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-using System;
-using System.Threading.Tasks;
+using SharedLibraly;
 
-class Client2
+class ClientMessageListner
 {
     static async Task Main(string[] args)
     {
         var connection = new HubConnectionBuilder()
-            .WithUrl("https://localhost:55059/Messages")
+            .WithUrl($"https://localhost:{ClientSettings.PORT}/Messages")
             .Build();
         connection.On<string>("ReceiveMessage", message =>
         {
-            Console.WriteLine($"Received message: {message}");
+            Console.WriteLine($"Получено сообщение: {message}");
         });
 
         await connection.StartAsync();
-        Console.WriteLine("Connection started. Waiting for messages...");
+        Console.WriteLine("Соединение установлено. В ожидании сообщений...");
 
         Console.ReadLine();
     }

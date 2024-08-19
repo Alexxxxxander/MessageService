@@ -1,8 +1,9 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using SharedLibraly;
 
-class Client1
+class ClientMessageSender
 {
     static async Task Main(string[] args)
     {
@@ -12,7 +13,7 @@ class Client1
             Encoding.UTF8,
             "application/json");
 
-        var response = await client.PostAsync("https://localhost:55059/api/Messages", content);
+        var response = await client.PostAsync($"https://localhost:{ClientSettings.PORT}/api/Messages", content);
         Console.WriteLine($"Server response: {response.StatusCode}");
     }
 }
